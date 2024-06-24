@@ -7,6 +7,17 @@ import pandas as pd
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
+# create connection object
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+df = conn.read(
+spreadsheet="spreadsheet",
+worksheet="Sheet1",
+ttl="10m",
+usecols=[0, 4],
+)
+st.dataframe(df)
+
 # Show app title and description.
 st.set_page_config(page_title="Support ticket workflow", page_icon="🎫")
 st.title("🎫 Support ticket workflow")
@@ -59,10 +70,7 @@ if "df" not in st.session_state:
             for _ in range(100)
         ],
     }
-    # create connection object
-    conn = st.connection("gsheets", type=GSheetsConnection)
-
-    df = conn.read()
+    
     # df = pd.DataFrame(data)
 
     # Save the dataframe in session state (a dictionary-like object that persists across
