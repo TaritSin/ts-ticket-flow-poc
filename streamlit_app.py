@@ -5,6 +5,7 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 
 # Show app title and description.
 st.set_page_config(page_title="Support ticket workflow", page_icon="🎫")
@@ -58,7 +59,11 @@ if "df" not in st.session_state:
             for _ in range(100)
         ],
     }
-    df = pd.DataFrame(data)
+    # create connection object
+    conn = st.connection("gsheets", type=GSheetsConnection)
+
+    df = conn.read()
+    # df = pd.DataFrame(data)
 
     # Save the dataframe in session state (a dictionary-like object that persists across
     # page runs). This ensures our data is persisted when the app updates.
