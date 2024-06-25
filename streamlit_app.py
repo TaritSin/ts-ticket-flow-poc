@@ -11,7 +11,6 @@ from streamlit_gsheets import GSheetsConnection
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 df = conn.read(
-spreadsheet="spreadsheet",
 worksheet="Sheet1",
 ttl="10m",
 usecols=[0, 4],
