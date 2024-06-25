@@ -7,14 +7,6 @@ import pandas as pd
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
-# create connection object
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-df = conn.read(
-worksheet="Sheet1",
-usecols=[0, 4],
-)
-st.dataframe(df)
 
 # Show app title and description.
 st.set_page_config(page_title="Support ticket workflow", page_icon="🎫")
@@ -26,6 +18,14 @@ st.write(
     existing tickets, and view some statistics.
     """
 )
+# create connection object
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+df = conn.read(
+worksheet="Sheet1",
+usecols=[0, 4],
+)
+st.dataframe(df)
 
 # Create a random Pandas dataframe with existing tickets.
 if "df" not in st.session_state:
